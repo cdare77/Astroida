@@ -20,40 +20,34 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ASTROIDA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fne-3A-KOs">
-                                <rect key="frame" x="164" y="150" width="273" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Astroida" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4O-F5-UNu">
+                                <rect key="frame" x="191" y="224" width="218" height="21"/>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="273" id="ZiI-aL-OIq"/>
-                                    <constraint firstAttribute="height" constant="21" id="hOq-MK-dlg"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="42"/>
-                                <color key="textColor" red="0.89190735479797978" green="0.035758011225109319" blue="0.65269619660630196" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.9443260732323232" green="0.080391588080642645" blue="0.87955445712480584" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BY CHRIS DARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8b-XP-PNL">
-                                <rect key="frame" x="200" y="394" width="200" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="By Chris Dare" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2d7-z6-ove">
+                                <rect key="frame" x="209" y="348" width="183" height="21"/>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="VG2-MU-7bW"/>
-                                    <constraint firstAttribute="width" constant="200" id="kKB-lW-knl"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="20"/>
-                                <color key="textColor" red="0.88052398989898994" green="0.0" blue="0.60145084394111292" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="24"/>
+                                <color key="textColor" red="0.94432607319999995" green="0.080391588080000007" blue="0.87955445710000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="h8b-XP-PNL" secondAttribute="bottom" constant="185" id="0hO-5q-gSs"/>
-                            <constraint firstAttribute="trailing" secondItem="BkA-E6-Pf7" secondAttribute="trailing" id="6bm-9j-WpH"/>
-                            <constraint firstItem="Fne-3A-KOs" firstAttribute="centerX" secondItem="BkA-E6-Pf7" secondAttribute="centerX" id="709-32-P9n"/>
-                            <constraint firstItem="Fne-3A-KOs" firstAttribute="centerX" secondItem="h8b-XP-PNL" secondAttribute="centerX" id="JQr-zm-kOP"/>
-                            <constraint firstItem="BkA-E6-Pf7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Jzs-gs-OpR"/>
-                            <constraint firstItem="Fne-3A-KOs" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="130" id="XwH-cC-GUJ"/>
-                            <constraint firstItem="BkA-E6-Pf7" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="e1J-X3-ojb"/>
-                            <constraint firstItem="BkA-E6-Pf7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="qdR-3V-cUT"/>
+                            <constraint firstItem="h4O-F5-UNu" firstAttribute="leading" secondItem="BkA-E6-Pf7" secondAttribute="trailing" constant="-409" id="6yN-Ms-6ip"/>
+                            <constraint firstAttribute="trailing" secondItem="BkA-E6-Pf7" secondAttribute="trailing" id="709-4B-tff"/>
+                            <constraint firstItem="2d7-z6-ove" firstAttribute="centerX" secondItem="BkA-E6-Pf7" secondAttribute="centerX" id="BE7-8Q-HRt"/>
+                            <constraint firstItem="2d7-z6-ove" firstAttribute="leading" secondItem="BkA-E6-Pf7" secondAttribute="trailing" constant="-391" id="UbA-Jf-mbP"/>
+                            <constraint firstItem="2d7-z6-ove" firstAttribute="width" secondItem="BkA-E6-Pf7" secondAttribute="width" id="bVQ-OC-rTQ"/>
+                            <constraint firstItem="BkA-E6-Pf7" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="bnl-F2-k8n"/>
+                            <constraint firstItem="h4O-F5-UNu" firstAttribute="centerX" secondItem="BkA-E6-Pf7" secondAttribute="centerX" id="dT4-d7-azP"/>
+                            <constraint firstItem="BkA-E6-Pf7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="iJ7-Ah-r5T"/>
+                            <constraint firstItem="BkA-E6-Pf7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="izb-Yl-K19"/>
+                            <constraint firstItem="h4O-F5-UNu" firstAttribute="width" secondItem="BkA-E6-Pf7" secondAttribute="width" id="kQk-NE-I0X"/>
                         </constraints>
                     </view>
                 </viewController>

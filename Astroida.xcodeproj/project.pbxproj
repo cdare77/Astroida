@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		833EEE311BD36D7800FFC8B5 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 833EEE301BD36D7800FFC8B5 /* MyParticle.sks */; settings = {ASSET_TAGS = (); }; };
 		83EB3F381BD2F11E00A3060E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EB3F371BD2F11E00A3060E /* AppDelegate.swift */; };
 		83EB3F3A1BD2F11E00A3060E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 83EB3F391BD2F11E00A3060E /* GameScene.sks */; };
 		83EB3F3C1BD2F11E00A3060E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EB3F3B1BD2F11E00A3060E /* GameScene.swift */; };
@@ -14,7 +15,6 @@
 		83EB3F411BD2F11E00A3060E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83EB3F3F1BD2F11E00A3060E /* Main.storyboard */; };
 		83EB3F431BD2F11E00A3060E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83EB3F421BD2F11E00A3060E /* Assets.xcassets */; };
 		83EB3F461BD2F11E00A3060E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83EB3F441BD2F11E00A3060E /* LaunchScreen.storyboard */; };
-		83EB3F4F1BD2F16000A3060E /* MyParticle1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 83EB3F4D1BD2F16000A3060E /* MyParticle1.sks */; settings = {ASSET_TAGS = (); }; };
 		83EB3F501BD2F16000A3060E /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 83EB3F4E1BD2F16000A3060E /* spark.png */; settings = {ASSET_TAGS = (); }; };
 		83EB3F521BD2F18200A3060E /* MyParticle2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 83EB3F511BD2F18200A3060E /* MyParticle2.sks */; settings = {ASSET_TAGS = (); }; };
 		83EB3F5E1BD3026A00A3060E /* asteroid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83EB3F5B1BD3026A00A3060E /* asteroid@2x.png */; settings = {ASSET_TAGS = (); }; };
@@ -27,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		833EEE301BD36D7800FFC8B5 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		83EB3F341BD2F11E00A3060E /* Astroida.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Astroida.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83EB3F371BD2F11E00A3060E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83EB3F391BD2F11E00A3060E /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -36,7 +37,6 @@
 		83EB3F421BD2F11E00A3060E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83EB3F451BD2F11E00A3060E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83EB3F471BD2F11E00A3060E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83EB3F4D1BD2F16000A3060E /* MyParticle1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle1.sks; sourceTree = "<group>"; };
 		83EB3F4E1BD2F16000A3060E /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		83EB3F511BD2F18200A3060E /* MyParticle2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle2.sks; sourceTree = "<group>"; };
 		83EB3F5B1BD3026A00A3060E /* asteroid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "asteroid@2x.png"; sourceTree = "<group>"; };
@@ -83,7 +83,7 @@
 				83EB3F371BD2F11E00A3060E /* AppDelegate.swift */,
 				83EB3F391BD2F11E00A3060E /* GameScene.sks */,
 				83EB3F3B1BD2F11E00A3060E /* GameScene.swift */,
-				83EB3F4D1BD2F16000A3060E /* MyParticle1.sks */,
+				833EEE301BD36D7800FFC8B5 /* MyParticle.sks */,
 				83EB3F611BD31AE800A3060E /* MyParticle3.sks */,
 				83EB3F511BD2F18200A3060E /* MyParticle2.sks */,
 				83EB3F4E1BD2F16000A3060E /* spark.png */,
@@ -169,7 +169,6 @@
 				83EB3F661BD33BE200A3060E /* icon.png in Resources */,
 				83EB3F641BD33A2E00A3060E /* loadingImage.png in Resources */,
 				83EB3F5F1BD3026A00A3060E /* spaceship@2x.png in Resources */,
-				83EB3F4F1BD2F16000A3060E /* MyParticle1.sks in Resources */,
 				83EB3F601BD3026A00A3060E /* starfield.png in Resources */,
 				83EB3F621BD31AE800A3060E /* MyParticle3.sks in Resources */,
 				83EB3F501BD2F16000A3060E /* spark.png in Resources */,
@@ -177,6 +176,7 @@
 				83EB3F3A1BD2F11E00A3060E /* GameScene.sks in Resources */,
 				83EB3F461BD2F11E00A3060E /* LaunchScreen.storyboard in Resources */,
 				83EB3F431BD2F11E00A3060E /* Assets.xcassets in Resources */,
+				833EEE311BD36D7800FFC8B5 /* MyParticle.sks in Resources */,
 				83EB3F521BD2F18200A3060E /* MyParticle2.sks in Resources */,
 				83EB3F411BD2F11E00A3060E /* Main.storyboard in Resources */,
 			);

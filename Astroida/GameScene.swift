@@ -10,10 +10,10 @@ import SpriteKit
 import CoreMotion
 
 enum SequenceType: Int {
-    case One, Two, Three, Four, Chain
+    case One, Two, Three, Four, Chain, Five, Six, Seven, HeavyChain
 }
 
-let criticism = ["Sir, have you been drinking tonight?", "Who the hell taught you to fly?", "I've seen old Vulcan women fly better than that", "Don't worry, it's five star safety rating", "\"If you ain't first, you're last\" - Ricky Bobby", "I think Razor scooters are more your thing", "Shake and Bake?"]
+let criticism = ["Sir, have you been drinking tonight?", "Who the hell taught you to fly.", "I've seen old Vulcan women fly better than that", "Don't worry, it's five star safety rating", "\"If you ain't first, you're last\" - Ricky Bobby", "I think Razor scooters are more your thing", "Shake and Bake?", "Mediocrity like that takes effort", "...With the coordination of an epileptic", "I would sigh if my developer imlemented me so"]
 
 let kScore = "score"
 var highScore = 0
@@ -40,48 +40,30 @@ class GameScene: SKScene {
     var asteroidSize: CGSize = SKSpriteNode(imageNamed: "asteroid").size
     var highscoreLabel: SKLabelNode!
     var restartButton: SKLabelNode!
-    var thisView: SKView!
+
     var gameOverLabel: SKLabelNode!
     var criticismLabel: SKLabelNode!
     var blowUp: SKEmitterNode!
     var motionManager: CMMotionManager!
     var motionQueue: NSOperationQueue!
+    var pauseButton: SKLabelNode!
+    
+
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        thisView = view
+
         createScore()
         createHighScoreLabel()
+        createPauseButton()
+        createRestartButton()
+        createGameOverLabel()
+        createCriticismLabel()
         
         motionQueue = NSOperationQueue()
         motionManager = CMMotionManager()
-        motionManager.accelerometerUpdateInterval = 1
-        motionManager.startAccelerometerUpdatesToQueue(motionQueue) { (accelData, error) -> Void in
-            self.updateViewWithMotion(accelData!)
-        }
-        
-        restartButton = SKLabelNode(text: "Restart")
-        restartButton.fontName = "Copperplate"
-        restartButton.fontSize = 36
-        restartButton.fontColor = UIColor(red: 196.0/255, green: 0.0, blue: 193.0/255, alpha: 1.0)
-        restartButton.hidden = true
-        restartButton.position = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2 - 80.0)
-        addChild(restartButton)
-        
-        gameOverLabel = SKLabelNode(text: "GAME OVER")
-        gameOverLabel.zPosition = 2
-        gameOverLabel.fontName = "Copperplate"
-        gameOverLabel.hidden = true
-        gameOverLabel.position = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2 + 50.0)
-        addChild(gameOverLabel)
-        
-        criticismLabel = SKLabelNode(fontNamed: "Copperplate")
-        criticismLabel.zPosition = 2
-        criticismLabel.position = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2 - 10.0)
-        criticismLabel.fontSize = 20
-        criticismLabel.hidden = true
-        criticismLabel.text = criticism[RandomInt(min: 0, max: criticism.count - 1)]
-        addChild(criticismLabel)
+        motionManager.accelerometerUpdateInterval = 0.1
+
         
         blowUp = SKEmitterNode(fileNamed: "MyParticle3")
         blowUp!.zPosition = 5
@@ -91,13 +73,37 @@ class GameScene: SKScene {
     
     func updateViewWithMotion(accelData: CMAccelerometerData)
     {
+        let dx = 100.0 * accelData.acceleration.y
+        let dy = 25.0 - 60.0 * accelData.acceleration.x
+        var newX = ship.position.x + CGFloat(dx)
+        var newY = ship.position.y + CGFloat(dy)
         
+        if newX < 0 {
+            newX = 0
+        }
+        else if newX > view!.frame.size.width {
+            newX = view!.frame.size.width
+        }
+        if newY < 0 {
+            newY = 0
+        }
+        else if newY > view!.frame.size.height {
+            newY = view!.frame.size.height
+        }
+        
+        ship.runAction(SKAction.moveTo(CGPoint(x: newX, y: newY), duration: 0.2))
+        //ship.runAction(SKAction.moveBy(CGVector(dx: dx, dy: dy), duration: 0.2))
+        ship.runAction(SKAction.rotateToAngle(CGFloat(-2 * accelData.acceleration.y), duration: 0.5))
     }
     
     func start(view: SKView)  {
         size = view.bounds.size
         load()
         score = 0
+        
+        motionManager.startAccelerometerUpdatesToQueue(motionQueue) { (accelData, error) -> Void in
+            self.updateViewWithMotion(accelData!)
+        }
         
         let background = SKSpriteNode(imageNamed: "starfield")
         background.position = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2)
@@ -112,15 +118,17 @@ class GameScene: SKScene {
         
         addChild(ship)
         
+        criticismLabel.text = criticism[RandomInt(min: 0, max: criticism.count - 1)]
+        
         createEmitterNode()
         createSlices()
 
         highscoreLabel.text = "High Score: \(highScore)"
         
-        sequence = [.One, .One, .Two, .Two, .Two, .Three, .Three, .Chain, .Four]
+        sequence = [.One, .One, .Two, .Two, .Two, .Three, .Three, .Three, .Chain, .Chain, .Four, .Five, .Six, .Seven, .HeavyChain]
         
-        for _ in 0...1000 {
-            let nextSequence = SequenceType(rawValue: RandomInt(min: 1, max: 4))!
+        for _ in 0...1500 {
+            let nextSequence = SequenceType(rawValue: RandomInt(min: 3, max: 8))!
             sequence.append(nextSequence)
         }
         gameOverLabel.hidden = false
@@ -143,10 +151,15 @@ class GameScene: SKScene {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
-        if gameEnded {
-            if let touch = touches.first {
-                let location = touch.locationInNode(self)
-                let nodesAtPos = nodesAtPoint(location)
+        if let touch = touches.first {
+            let location = touch.locationInNode(self)
+            let nodesAtPos = nodesAtPoint(location)
+            
+            if nodesAtPos.contains(pauseButton) {
+                self.scene!.view!.paused = !(self.scene!.view!.paused)
+            }
+            
+            if gameEnded {
                 if nodesAtPos.contains(restartButton) {
                     restartButton.runAction(SKAction.scaleTo(0.5, duration: 0.2))
                     gameEnded = false
@@ -160,17 +173,15 @@ class GameScene: SKScene {
                     
                     scoreLabel.text = "Score: 0"
                     
-                    start(thisView!)
+                    start(scene!.view!)
                     return
                 }
-            }
-        } else {
-            super.touchesBegan(touches, withEvent: event)
+            } else {
+                super.touchesBegan(touches, withEvent: event)
         
-            activeSlicePoints.removeAll(keepCapacity: true)
+                activeSlicePoints.removeAll(keepCapacity: true)
         
-            if let touch = touches.first {
-                let location = touch.locationInNode(self)
+
                 activeSlicePoints.append(location)
             
                 redrawActiveSlice()
@@ -180,6 +191,7 @@ class GameScene: SKScene {
             
                 activeSliceBG.alpha = 1
                 activeSliceFG.alpha = 1
+            
             }
         }
         
@@ -189,14 +201,6 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
         if gameEnded {
             return
-        }
-        
-        if ship.position.x < view!.frame.width / 3 {
-            ship.runAction(SKAction.rotateToAngle(CGFloat(-1.0 * M_PI_4), duration: 0.4))
-        } else if ship.position.x < 2 * view!.frame.width / 3 {
-            ship.runAction(SKAction.rotateToAngle(0.0, duration: 0.4))
-        } else {
-            ship.runAction(SKAction.rotateToAngle(CGFloat(M_PI_4), duration: 0.4))
         }
         
         for asteroid in liveAsteroids {
@@ -233,6 +237,22 @@ class GameScene: SKScene {
         
         addChild(scoreLabel)
     }
+    func createPauseButton() {
+        pauseButton = SKLabelNode(text: "| |")
+        pauseButton.fontName = "AvenirNext-Heavy"
+        pauseButton.fontSize = 25
+        pauseButton.position = CGPoint(x: 15, y: view!.frame.height - 35.0)
+        addChild(pauseButton)
+    }
+    func createRestartButton() {
+        restartButton = SKLabelNode(text: "Restart")
+        restartButton.fontName = "Copperplate"
+        restartButton.fontSize = 50
+        restartButton.fontColor = UIColor(red: 196.0/255, green: 0.0, blue: 193.0/255, alpha: 1.0)
+        restartButton.hidden = true
+        restartButton.position = CGPoint(x: view!.frame.width / 2, y: view!.frame.height / 2 - 80.0)
+        addChild(restartButton)
+    }
     func createHighScoreLabel() {
         highscoreLabel = SKLabelNode(fontNamed: "Copperplate")
         highscoreLabel.text = "High Score: 0"
@@ -242,7 +262,6 @@ class GameScene: SKScene {
         
         addChild(highscoreLabel)
     }
-    
     func createEmitterNode() {
         emitterNode = SKEmitterNode(fileNamed: "MyParticle2")
         emitterNode.position = CGPoint(x: view!.frame.width / 2, y: view!.frame.height / 2)
@@ -265,6 +284,23 @@ class GameScene: SKScene {
         addChild(activeSliceBG)
         addChild(activeSliceFG)
     }
+    func createGameOverLabel() {
+        gameOverLabel = SKLabelNode(text: "GAME OVER")
+        gameOverLabel.zPosition = 2
+        gameOverLabel.fontName = "Copperplate"
+        gameOverLabel.hidden = true
+        gameOverLabel.position = CGPoint(x: view!.frame.width / 2, y: view!.frame.height / 2 + 50.0)
+        addChild(gameOverLabel)
+    }
+    func createCriticismLabel() {
+        criticismLabel = SKLabelNode(fontNamed: "Copperplate")
+        criticismLabel.zPosition = 2
+        criticismLabel.position = CGPoint(x: view!.frame.width / 2, y: view!.frame.height / 2 - 10.0)
+        criticismLabel.fontSize = 20
+        criticismLabel.hidden = true
+        criticismLabel.text = criticism[RandomInt(min: 0, max: criticism.count - 1)]
+        addChild(criticismLabel)
+    }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if gameEnded {
             return
@@ -284,8 +320,18 @@ class GameScene: SKScene {
         }
         
         let location = touch.locationInNode(self)
-        ship.runAction(SKAction.moveTo(location, duration: 0.1))
-        emitterNode.runAction(SKAction.moveTo(location, duration: 0.9))
+        let node = nodeAtPoint(location)
+        if node.name == "asteroid" {
+            let smokeEmitter = SKEmitterNode(fileNamed: "MyParticle")
+            smokeEmitter!.position = node.position
+            addChild(smokeEmitter!)
+                
+            RunAfterDelay(0.9) {
+                smokeEmitter!.removeFromParent()
+            }
+                
+            node.removeFromParent()
+        }
         
         activeSlicePoints.append(location)
         redrawActiveSlice()
@@ -327,9 +373,11 @@ class GameScene: SKScene {
         let xPos = RandomInt(min: 64, max: Int(view!.frame.width) - 64)
         let yPos = RandomInt(min: 64, max: Int(view!.frame.height) - 64)
         
+        asteroid.size = CGSize(width: asteroid.size.width / 4, height: asteroid.size.height / 4)
         asteroid.position = CGPoint(x: xPos, y: yPos)
+        asteroid.name = "asteroid"
         asteroid.zPosition = 2
-        asteroid.runAction(SKAction.scaleBy(2.0, duration: liveTimer))
+        asteroid.runAction(SKAction.scaleBy(8.0, duration: liveTimer))
         
         liveAsteroids.append(asteroid)
         addChild(asteroid)
@@ -379,6 +427,46 @@ class GameScene: SKScene {
             RunAfterDelay(respawnTimer / 10.0 * 3.0) { [unowned self] in
                 self.createAsteroid()
             }
+        case .Five:
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+        case .Six:
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+        case .Seven:
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+            createAsteroid()
+        case .HeavyChain:
+            RunAfterDelay(respawnTimer / 10.0) { [unowned self] in
+                self.createAsteroid()
+            }
+            RunAfterDelay(respawnTimer / 10.0 * 2.0) { [unowned self] in
+                self.createAsteroid()
+            }
+            RunAfterDelay(respawnTimer / 10.0 * 3.0) { [unowned self] in
+                self.createAsteroid()
+            }
+            RunAfterDelay(respawnTimer / 10.0 * 4.0) { [unowned self] in
+                self.createAsteroid()
+            }
+            RunAfterDelay(respawnTimer / 10.0 * 5.0) { [unowned self] in
+                self.createAsteroid()
+            }
+            RunAfterDelay(respawnTimer / 10.0 * 5.0) { [unowned self] in
+                self.createAsteroid()
+            }
         }
         
         ++seqPosition
@@ -390,6 +478,8 @@ class GameScene: SKScene {
             return
         }
         
+        motionManager.stopAccelerometerUpdates()
+        
         restartButton.hidden = false
         gameOverLabel.hidden = false
         criticismLabel.hidden = false
@@ -397,6 +487,13 @@ class GameScene: SKScene {
         gameEnded = true
         
         emitterNode.removeFromParent()
+        
+        for asteroid in liveAsteroids {
+            asteroid.removeFromParent()
+        }
+        
+        activeSliceBG.removeFromParent()
+        activeSliceFG.removeFromParent()
 
         blowUp!.position = ship.position
         addChild(blowUp!)
