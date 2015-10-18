@@ -331,6 +331,9 @@ class GameScene: SKScene {
             }
                 
             node.removeFromParent()
+            if let _ = scoreLabel {
+                score -= 100
+            }
         }
         
         activeSlicePoints.append(location)
