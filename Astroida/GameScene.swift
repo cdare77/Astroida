@@ -167,6 +167,11 @@ class GameScene: SKScene {
                     gameOverLabel.hidden = true
                     criticismLabel.hidden = true
                     
+                    for _ in 0...1500 {
+                        let nextSequence = SequenceType(rawValue: RandomInt(min: 3, max: 8))!
+                        sequence.append(nextSequence)
+                    }
+                    
                     blowUp.removeFromParent()
                     activeSliceBG.removeFromParent()
                     activeSliceFG.removeFromParent()
@@ -331,9 +336,9 @@ class GameScene: SKScene {
             }
                 
             node.removeFromParent()
-            if let _ = scoreLabel {
+            /*if let _ = scoreLabel {
                 score -= 100
-            }
+            }*/
         }
         
         activeSlicePoints.append(location)
@@ -494,6 +499,8 @@ class GameScene: SKScene {
         for asteroid in liveAsteroids {
             asteroid.removeFromParent()
         }
+        
+        sequence.removeAll(keepCapacity: true)
         
         activeSliceBG.removeFromParent()
         activeSliceFG.removeFromParent()
